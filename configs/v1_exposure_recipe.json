@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "reason": "Reproduce previously inspected main/smoke V1 cohorts without requiring their local artifacts",
+  "cohorts": [
+    {
+      "n_users": 10000,
+      "seed": 2026
+    },
+    {
+      "n_users": 1000,
+      "seed": 2026
+    }
+  ],
+  "union_users": 10992,
+  "population_size": 962179
+}

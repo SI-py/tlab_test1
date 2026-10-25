@@ -1,0 +1,2040 @@
+{
+  "scope": "External Yambda replication; fixed design before final weekly quality.",
+  "config": {
+    "seed": 20261025,
+    "random_subset_seed": 20261026,
+    "users": {
+      "train": 2500,
+      "validation": 500,
+      "test": 1000
+    },
+    "train_days": [
+      133,
+      140
+    ],
+    "validation_days": [
+      147,
+      154
+    ],
+    "test_days": [
+      161,
+      168,
+      175
+    ],
+    "horizon_days": 7,
+    "catalog_size": 10000,
+    "manual_windows": [
+      1,
+      7,
+      30,
+      0
+    ],
+    "automatic_windows": [
+      2,
+      3,
+      5,
+      10,
+      14,
+      21,
+      45,
+      60,
+      90
+    ],
+    "subset_cardinalities": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "seeds": [
+      17,
+      42,
+      73
+    ],
+    "catboost_params": {
+      "depth": 7,
+      "l2_leaf_reg": 15
+    },
+    "max_trees": 2000,
+    "staged_period": 50,
+    "num_threads": 4,
+    "als_factors": 32,
+    "als_iterations": 10,
+    "als_alpha": 10,
+    "als_regularization": 0.5,
+    "budgets": {
+      "pop": 500,
+      "bm25": 200,
+      "als": 100
+    },
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 2026,
+    "training_positive_cap": 20,
+    "training_negative_cap": 25,
+    "parquet_batch_users": 64,
+    "candidate_batch_users": 64,
+    "source_url": "https://huggingface.co/datasets/yandex/yambda/resolve/main/sequential/50m/multi_event.parquet",
+    "artist_url": "https://huggingface.co/datasets/yandex/yambda/resolve/main/artist_item_mapping.parquet"
+  },
+  "status": "complete",
+  "snapshot_costs": [
+    {
+      "day": 133,
+      "role": "train",
+      "rows": 28197,
+      "query_users": 955,
+      "no_positive_users": 1545,
+      "cold_active_users": 12,
+      "warm_active_users": 943,
+      "warm_active_without_catalog_history": 0,
+      "outside_catalog_positive_pairs": 47043,
+      "cf_fit_seconds": 2.641224584003794,
+      "snapshot_seconds": 6.247723667001992,
+      "full_history_listens": 5994738,
+      "catalog_history_listens": 3206770
+    },
+    {
+      "day": 140,
+      "role": "train",
+      "rows": 28132,
+      "query_users": 969,
+      "no_positive_users": 1531,
+      "cold_active_users": 15,
+      "warm_active_users": 954,
+      "warm_active_without_catalog_history": 0,
+      "outside_catalog_positive_pairs": 50600,
+      "cf_fit_seconds": 2.6782139579954674,
+      "snapshot_seconds": 6.346135374995356,
+      "full_history_listens": 6360746,
+      "catalog_history_listens": 3394977
+    },
+    {
+      "day": 147,
+      "role": "validation",
+      "rows": 122231,
+      "query_users": 185,
+      "no_positive_users": 315,
+      "cold_active_users": 4,
+      "warm_active_users": 181,
+      "warm_active_without_catalog_history": 0,
+      "outside_catalog_positive_pairs": 10793,
+      "cf_fit_seconds": 2.80075937500078,
+      "snapshot_seconds": 5.204524041000695,
+      "full_history_listens": 6732697,
+      "catalog_history_listens": 3579077
+    },
+    {
+      "day": 154,
+      "role": "validation",
+      "rows": 128953,
+      "query_users": 196,
+      "no_positive_users": 304,
+      "cold_active_users": 1,
+      "warm_active_users": 195,
+      "warm_active_without_catalog_history": 0,
+      "outside_catalog_positive_pairs": 10841,
+      "cf_fit_seconds": 2.849954124998476,
+      "snapshot_seconds": 5.346916249996866,
+      "full_history_listens": 7103324,
+      "catalog_history_listens": 3759700
+    }
+  ],
+  "trials": [
+    {
+      "name": "manual",
+      "groups": [],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30"
+      ],
+      "features": 47,
+      "trees": 2000,
+      "fit_seconds": 32.67842304200167,
+      "metrics": {
+        "ndcg@10": 0.2162052071531237,
+        "recall@10": 0.020430471377375362,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21743099435824242,
+            "recall@10": 0.01929763544366745
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.21497941994800493,
+            "recall@10": 0.021563307311083274
+          }
+        ]
+      }
+    },
+    {
+      "name": "all_windows",
+      "groups": [
+        "window_2",
+        "window_3",
+        "window_5",
+        "window_10",
+        "window_14",
+        "window_21",
+        "window_45",
+        "window_60",
+        "window_90"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_2",
+        "item_count_2",
+        "pair_count_2",
+        "user_share_2",
+        "item_share_2",
+        "pair_share_2",
+        "artist_affinity_2",
+        "artist_share_2",
+        "user_count_3",
+        "item_count_3",
+        "pair_count_3",
+        "user_share_3",
+        "item_share_3",
+        "pair_share_3",
+        "artist_affinity_3",
+        "artist_share_3",
+        "user_count_5",
+        "item_count_5",
+        "pair_count_5",
+        "user_share_5",
+        "item_share_5",
+        "pair_share_5",
+        "artist_affinity_5",
+        "artist_share_5",
+        "user_count_10",
+        "item_count_10",
+        "pair_count_10",
+        "user_share_10",
+        "item_share_10",
+        "pair_share_10",
+        "artist_affinity_10",
+        "artist_share_10",
+        "user_count_14",
+        "item_count_14",
+        "pair_count_14",
+        "user_share_14",
+        "item_share_14",
+        "pair_share_14",
+        "artist_affinity_14",
+        "artist_share_14",
+        "user_count_21",
+        "item_count_21",
+        "pair_count_21",
+        "user_share_21",
+        "item_share_21",
+        "pair_share_21",
+        "artist_affinity_21",
+        "artist_share_21",
+        "user_count_45",
+        "item_count_45",
+        "pair_count_45",
+        "user_share_45",
+        "item_share_45",
+        "pair_share_45",
+        "artist_affinity_45",
+        "artist_share_45",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 119,
+      "trees": 1450,
+      "fit_seconds": 46.063170917004754,
+      "metrics": {
+        "ndcg@10": 0.21167770227203625,
+        "recall@10": 0.02000049506778312,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.2198839402901585,
+            "recall@10": 0.019710988309531788
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20347146425391396,
+            "recall@10": 0.02029000182603445
+          }
+        ]
+      },
+      "feature_importances": {
+        "pop_score": 0.20289939718321962,
+        "pop_rank": 0.4150979471528794,
+        "bm25_score": 2.9004262423114255,
+        "bm25_rank": 3.456910607149433,
+        "als_score": 4.189600975416796,
+        "als_rank": 11.937437838127087,
+        "item_identity": 2.3401695687119477,
+        "artist_identity": 3.913763986487912,
+        "user_last_item": 9.748324027463578,
+        "user_recency": 1.0669959380886884,
+        "user_history_span": 1.4227323295155674,
+        "user_cold": 0.0,
+        "item_recency": 1.0850211661167575,
+        "pair_recency": 3.3294008578025975,
+        "user_distinct_tracks": 2.075652984841779,
+        "user_count_0": 0.9188408548187921,
+        "item_count_0": 0.9370915205834435,
+        "pair_count_0": 1.0120729372425101,
+        "user_share_0": 0.2599965861787603,
+        "item_share_0": 0.0,
+        "pair_share_0": 0.7322219740617472,
+        "artist_affinity_0": 0.5530186738753348,
+        "artist_share_0": 1.5252886863713273,
+        "user_count_1": 0.5015675823132797,
+        "item_count_1": 0.36881399913042134,
+        "pair_count_1": 0.05292374281525429,
+        "user_share_1": 0.7781905969451922,
+        "item_share_1": 1.3294809460966608,
+        "pair_share_1": 0.08590732628926398,
+        "artist_affinity_1": 0.012154124025370002,
+        "artist_share_1": 0.07274252290737436,
+        "user_count_7": 0.6881696546039302,
+        "item_count_7": 0.3151562933770623,
+        "pair_count_7": 0.06285764111352661,
+        "user_share_7": 0.6385456568696972,
+        "item_share_7": 0.7794346298200291,
+        "pair_share_7": 0.2598491553056145,
+        "artist_affinity_7": 0.0693523702694794,
+        "artist_share_7": 0.18537531853994524,
+        "user_count_30": 0.9733900795224767,
+        "item_count_30": 0.19567091734888514,
+        "pair_count_30": 0.3075990949868257,
+        "user_share_30": 0.43555983206893395,
+        "item_share_30": 1.000958666163234,
+        "pair_share_30": 0.20379432916709309,
+        "artist_affinity_30": 0.16743720063810247,
+        "artist_share_30": 0.6134022679684152,
+        "user_count_2": 0.4400990262849842,
+        "item_count_2": 0.5118645386563851,
+        "pair_count_2": 0.009378417003386456,
+        "user_share_2": 0.3414353437638078,
+        "item_share_2": 0.9470528860219168,
+        "pair_share_2": 0.0425922524800894,
+        "artist_affinity_2": 0.011588930206432225,
+        "artist_share_2": 0.05924614982621035,
+        "user_count_3": 0.5093813721644194,
+        "item_count_3": 0.20665769072031617,
+        "pair_count_3": 0.0424843084872373,
+        "user_share_3": 0.4112803351259255,
+        "item_share_3": 0.7692588968712755,
+        "pair_share_3": 0.09971020202331576,
+        "artist_affinity_3": 0.009969195769394814,
+        "artist_share_3": 0.1333010279723676,
+        "user_count_5": 0.45589850050242453,
+        "item_count_5": 0.4883742443193746,
+        "pair_count_5": 0.2270539513602615,
+        "user_share_5": 0.6445611709226451,
+        "item_share_5": 0.8118161596171442,
+        "pair_share_5": 0.5144094869069203,
+        "artist_affinity_5": 0.06392390820004411,
+        "artist_share_5": 0.1668293132282609,
+        "user_count_10": 0.46010384978794405,
+        "item_count_10": 0.43497003664323675,
+        "pair_count_10": 0.015024151610191095,
+        "user_share_10": 0.5060452845146263,
+        "item_share_10": 1.0120369920084427,
+        "pair_share_10": 0.15636025116612276,
+        "artist_affinity_10": 0.04152377887760657,
+        "artist_share_10": 0.34797446132317844,
+        "user_count_14": 0.614621391728969,
+        "item_count_14": 0.34789580197975695,
+        "pair_count_14": 0.04366588973602506,
+        "user_share_14": 0.5188792120995362,
+        "item_share_14": 0.8373833784632787,
+        "pair_share_14": 0.18865372079616013,
+        "artist_affinity_14": 0.07436656005713631,
+        "artist_share_14": 0.37734587636497163,
+        "user_count_21": 0.9625473632994507,
+        "item_count_21": 0.31728451760474585,
+        "pair_count_21": 0.27631920853187464,
+        "user_share_21": 0.5279008129307325,
+        "item_share_21": 0.799683528871318,
+        "pair_share_21": 0.35307982385383124,
+        "artist_affinity_21": 0.10105275512273879,
+        "artist_share_21": 0.3978830836106708,
+        "user_count_45": 1.152017823895573,
+        "item_count_45": 0.4061315260089358,
+        "pair_count_45": 0.48757982906191144,
+        "user_share_45": 0.7032336502114774,
+        "item_share_45": 1.0826193325056943,
+        "pair_share_45": 0.6698966567011698,
+        "artist_affinity_45": 0.12242347014242551,
+        "artist_share_45": 0.8100085770319274,
+        "user_count_60": 0.9337737660649302,
+        "item_count_60": 0.4297796850698525,
+        "pair_count_60": 0.824368022422531,
+        "user_share_60": 0.9325615395077043,
+        "item_share_60": 1.022466194249251,
+        "pair_share_60": 0.688197395788996,
+        "artist_affinity_60": 0.2852440453220392,
+        "artist_share_60": 0.6883933070454761,
+        "user_count_90": 1.2766860974498784,
+        "item_count_90": 0.7706564278474899,
+        "pair_count_90": 0.5566263485511658,
+        "user_share_90": 0.9304439127152185,
+        "item_share_90": 1.33048764553903,
+        "pair_share_90": 0.9001711367257823,
+        "artist_affinity_90": 0.27327829989753677,
+        "artist_share_90": 0.97088722303927
+      }
+    },
+    {
+      "name": "importance_1",
+      "groups": [
+        "window_90"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 55,
+      "trees": 2000,
+      "fit_seconds": 34.46795891700458,
+      "metrics": {
+        "ndcg@10": 0.2086753262104723,
+        "recall@10": 0.019502656204209892,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.2116219039103257,
+            "recall@10": 0.019710232613041383
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.2057287485106189,
+            "recall@10": 0.019295079795378405
+          }
+        ]
+      }
+    },
+    {
+      "name": "importance_2",
+      "groups": [
+        "window_90",
+        "window_60"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 63,
+      "trees": 1900,
+      "fit_seconds": 35.57500104200153,
+      "metrics": {
+        "ndcg@10": 0.21295703230847718,
+        "recall@10": 0.021427343447910124,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21809432120611918,
+            "recall@10": 0.021904602370391806
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20781974341083514,
+            "recall@10": 0.02095008452542844
+          }
+        ]
+      }
+    },
+    {
+      "name": "importance_3",
+      "groups": [
+        "window_90",
+        "window_60",
+        "window_45"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_45",
+        "item_count_45",
+        "pair_count_45",
+        "user_share_45",
+        "item_share_45",
+        "pair_share_45",
+        "artist_affinity_45",
+        "artist_share_45",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 71,
+      "trees": 650,
+      "fit_seconds": 37.413170041996636,
+      "metrics": {
+        "ndcg@10": 0.20830185554384695,
+        "recall@10": 0.019082069904826054,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21588430738281444,
+            "recall@10": 0.019907937552725904
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20071940370487942,
+            "recall@10": 0.01825620225692621
+          }
+        ]
+      }
+    },
+    {
+      "name": "importance_5",
+      "groups": [
+        "window_90",
+        "window_60",
+        "window_45",
+        "window_21",
+        "window_5"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_5",
+        "item_count_5",
+        "pair_count_5",
+        "user_share_5",
+        "item_share_5",
+        "pair_share_5",
+        "artist_affinity_5",
+        "artist_share_5",
+        "user_count_21",
+        "item_count_21",
+        "pair_count_21",
+        "user_share_21",
+        "item_share_21",
+        "pair_share_21",
+        "artist_affinity_21",
+        "artist_share_21",
+        "user_count_45",
+        "item_count_45",
+        "pair_count_45",
+        "user_share_45",
+        "item_share_45",
+        "pair_share_45",
+        "artist_affinity_45",
+        "artist_share_45",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 87,
+      "trees": 2000,
+      "fit_seconds": 39.81797495800129,
+      "metrics": {
+        "ndcg@10": 0.20929711561811265,
+        "recall@10": 0.019304955915216852,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21480634570891607,
+            "recall@10": 0.018458749959661735
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.2037878855273092,
+            "recall@10": 0.02015116187077197
+          }
+        ]
+      }
+    },
+    {
+      "name": "random_1",
+      "groups": [
+        "window_21"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_21",
+        "item_count_21",
+        "pair_count_21",
+        "user_share_21",
+        "item_share_21",
+        "pair_share_21",
+        "artist_affinity_21",
+        "artist_share_21"
+      ],
+      "features": 55,
+      "trees": 1650,
+      "fit_seconds": 34.47056895800051,
+      "metrics": {
+        "ndcg@10": 0.21134245785489342,
+        "recall@10": 0.02116805285330244,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21570586780641993,
+            "recall@10": 0.022507506612861522
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20697904790336694,
+            "recall@10": 0.019828599093743356
+          }
+        ]
+      }
+    },
+    {
+      "name": "random_2",
+      "groups": [
+        "window_10",
+        "window_45"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_10",
+        "item_count_10",
+        "pair_count_10",
+        "user_share_10",
+        "item_share_10",
+        "pair_share_10",
+        "artist_affinity_10",
+        "artist_share_10",
+        "user_count_45",
+        "item_count_45",
+        "pair_count_45",
+        "user_share_45",
+        "item_share_45",
+        "pair_share_45",
+        "artist_affinity_45",
+        "artist_share_45"
+      ],
+      "features": 63,
+      "trees": 1150,
+      "fit_seconds": 35.817906958000094,
+      "metrics": {
+        "ndcg@10": 0.20839670455573414,
+        "recall@10": 0.019174255882452675,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.2119587051370843,
+            "recall@10": 0.020137083139146326
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20483470397438397,
+            "recall@10": 0.018211428625759023
+          }
+        ]
+      }
+    },
+    {
+      "name": "random_3",
+      "groups": [
+        "window_2",
+        "window_5",
+        "window_60"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_2",
+        "item_count_2",
+        "pair_count_2",
+        "user_share_2",
+        "item_share_2",
+        "pair_share_2",
+        "artist_affinity_2",
+        "artist_share_2",
+        "user_count_5",
+        "item_count_5",
+        "pair_count_5",
+        "user_share_5",
+        "item_share_5",
+        "pair_share_5",
+        "artist_affinity_5",
+        "artist_share_5",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60"
+      ],
+      "features": 71,
+      "trees": 1000,
+      "fit_seconds": 37.833969250001246,
+      "metrics": {
+        "ndcg@10": 0.2097169883147441,
+        "recall@10": 0.0200200324431401,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21299266463237368,
+            "recall@10": 0.020320033215392767
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20644131199711457,
+            "recall@10": 0.01972003167088744
+          }
+        ]
+      }
+    },
+    {
+      "name": "random_5",
+      "groups": [
+        "window_2",
+        "window_10",
+        "window_21",
+        "window_60",
+        "window_90"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_2",
+        "item_count_2",
+        "pair_count_2",
+        "user_share_2",
+        "item_share_2",
+        "pair_share_2",
+        "artist_affinity_2",
+        "artist_share_2",
+        "user_count_10",
+        "item_count_10",
+        "pair_count_10",
+        "user_share_10",
+        "item_share_10",
+        "pair_share_10",
+        "artist_affinity_10",
+        "artist_share_10",
+        "user_count_21",
+        "item_count_21",
+        "pair_count_21",
+        "user_share_21",
+        "item_share_21",
+        "pair_share_21",
+        "artist_affinity_21",
+        "artist_share_21",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 87,
+      "trees": 1950,
+      "fit_seconds": 39.94182266700227,
+      "metrics": {
+        "ndcg@10": 0.2123864500344482,
+        "recall@10": 0.02006517296932469,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.22127297477581057,
+            "recall@10": 0.02063731576224401
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20349992529308583,
+            "recall@10": 0.019493030176405367
+          }
+        ]
+      }
+    }
+  ],
+  "importance_order": [
+    "window_90",
+    "window_60",
+    "window_45",
+    "window_21",
+    "window_5",
+    "window_14",
+    "window_10",
+    "window_2",
+    "window_3"
+  ],
+  "random_subsets": [
+    [
+      "window_21"
+    ],
+    [
+      "window_45",
+      "window_10"
+    ],
+    [
+      "window_2",
+      "window_5",
+      "window_60"
+    ],
+    [
+      "window_2",
+      "window_10",
+      "window_90",
+      "window_60",
+      "window_21"
+    ]
+  ],
+  "selected": {
+    "manual": {
+      "name": "manual",
+      "groups": [],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30"
+      ],
+      "features": 47,
+      "trees": 2000,
+      "fit_seconds": 32.67842304200167,
+      "metrics": {
+        "ndcg@10": 0.2162052071531237,
+        "recall@10": 0.020430471377375362,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21743099435824242,
+            "recall@10": 0.01929763544366745
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.21497941994800493,
+            "recall@10": 0.021563307311083274
+          }
+        ]
+      }
+    },
+    "importance": {
+      "name": "importance_2",
+      "groups": [
+        "window_90",
+        "window_60"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 63,
+      "trees": 1900,
+      "fit_seconds": 35.57500104200153,
+      "metrics": {
+        "ndcg@10": 0.21295703230847718,
+        "recall@10": 0.021427343447910124,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.21809432120611918,
+            "recall@10": 0.021904602370391806
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20781974341083514,
+            "recall@10": 0.02095008452542844
+          }
+        ]
+      }
+    },
+    "random": {
+      "name": "random_5",
+      "groups": [
+        "window_2",
+        "window_10",
+        "window_21",
+        "window_60",
+        "window_90"
+      ],
+      "columns": [
+        "pop_score",
+        "pop_rank",
+        "bm25_score",
+        "bm25_rank",
+        "als_score",
+        "als_rank",
+        "item_identity",
+        "artist_identity",
+        "user_last_item",
+        "user_recency",
+        "user_history_span",
+        "user_cold",
+        "item_recency",
+        "pair_recency",
+        "user_distinct_tracks",
+        "user_count_0",
+        "item_count_0",
+        "pair_count_0",
+        "user_share_0",
+        "item_share_0",
+        "pair_share_0",
+        "artist_affinity_0",
+        "artist_share_0",
+        "user_count_1",
+        "item_count_1",
+        "pair_count_1",
+        "user_share_1",
+        "item_share_1",
+        "pair_share_1",
+        "artist_affinity_1",
+        "artist_share_1",
+        "user_count_7",
+        "item_count_7",
+        "pair_count_7",
+        "user_share_7",
+        "item_share_7",
+        "pair_share_7",
+        "artist_affinity_7",
+        "artist_share_7",
+        "user_count_30",
+        "item_count_30",
+        "pair_count_30",
+        "user_share_30",
+        "item_share_30",
+        "pair_share_30",
+        "artist_affinity_30",
+        "artist_share_30",
+        "user_count_2",
+        "item_count_2",
+        "pair_count_2",
+        "user_share_2",
+        "item_share_2",
+        "pair_share_2",
+        "artist_affinity_2",
+        "artist_share_2",
+        "user_count_10",
+        "item_count_10",
+        "pair_count_10",
+        "user_share_10",
+        "item_share_10",
+        "pair_share_10",
+        "artist_affinity_10",
+        "artist_share_10",
+        "user_count_21",
+        "item_count_21",
+        "pair_count_21",
+        "user_share_21",
+        "item_share_21",
+        "pair_share_21",
+        "artist_affinity_21",
+        "artist_share_21",
+        "user_count_60",
+        "item_count_60",
+        "pair_count_60",
+        "user_share_60",
+        "item_share_60",
+        "pair_share_60",
+        "artist_affinity_60",
+        "artist_share_60",
+        "user_count_90",
+        "item_count_90",
+        "pair_count_90",
+        "user_share_90",
+        "item_share_90",
+        "pair_share_90",
+        "artist_affinity_90",
+        "artist_share_90"
+      ],
+      "features": 87,
+      "trees": 1950,
+      "fit_seconds": 39.94182266700227,
+      "metrics": {
+        "ndcg@10": 0.2123864500344482,
+        "recall@10": 0.02006517296932469,
+        "weeks": [
+          {
+            "day": 147,
+            "users": 185,
+            "ndcg@10": 0.22127297477581057,
+            "recall@10": 0.02063731576224401
+          },
+          {
+            "day": 154,
+            "users": 196,
+            "ndcg@10": 0.20349992529308583,
+            "recall@10": 0.019493030176405367
+          }
+        ]
+      }
+    }
+  },
+  "manual_columns": [
+    "pop_score",
+    "pop_rank",
+    "bm25_score",
+    "bm25_rank",
+    "als_score",
+    "als_rank",
+    "item_identity",
+    "artist_identity",
+    "user_last_item",
+    "user_recency",
+    "user_history_span",
+    "user_cold",
+    "item_recency",
+    "pair_recency",
+    "user_distinct_tracks",
+    "user_count_0",
+    "item_count_0",
+    "pair_count_0",
+    "user_share_0",
+    "item_share_0",
+    "pair_share_0",
+    "artist_affinity_0",
+    "artist_share_0",
+    "user_count_1",
+    "item_count_1",
+    "pair_count_1",
+    "user_share_1",
+    "item_share_1",
+    "pair_share_1",
+    "artist_affinity_1",
+    "artist_share_1",
+    "user_count_7",
+    "item_count_7",
+    "pair_count_7",
+    "user_share_7",
+    "item_share_7",
+    "pair_share_7",
+    "artist_affinity_7",
+    "artist_share_7",
+    "user_count_30",
+    "item_count_30",
+    "pair_count_30",
+    "user_share_30",
+    "item_share_30",
+    "pair_share_30",
+    "artist_affinity_30",
+    "artist_share_30"
+  ],
+  "categoricals": [
+    "item_identity",
+    "artist_identity",
+    "user_last_item"
+  ],
+  "shared_fit_seconds": 78.74159395900642,
+  "catalog_items": 10000,
+  "history_listens": 16859106,
+  "test_weeks": [
+    {
+      "day": 161,
+      "systems": {
+        "manual": {
+          "warm": {
+            "ndcg": 0.17958214045843288,
+            "recall": 0.02067506189093072,
+            "candidate_recall": 0.21512536711084373
+          },
+          "all_active": {
+            "ndcg": 0.17948168877692697,
+            "recall": 0.02082105629991337,
+            "candidate_recall": 0.21571729261914865
+          }
+        },
+        "importance": {
+          "warm": {
+            "ndcg": 0.17890825842508626,
+            "recall": 0.02016862010570809,
+            "candidate_recall": 0.21512536711084373
+          },
+          "all_active": {
+            "ndcg": 0.17881303063531176,
+            "recall": 0.020318540420002546,
+            "candidate_recall": 0.21571729261914865
+          }
+        },
+        "random": {
+          "warm": {
+            "ndcg": 0.1802848644537538,
+            "recall": 0.019564523567276376,
+            "candidate_recall": 0.21512536711084373
+          },
+          "all_active": {
+            "ndcg": 0.180178965299416,
+            "recall": 0.019719126800473406,
+            "candidate_recall": 0.21571729261914865
+          }
+        }
+      },
+      "population": {
+        "query_users": 387,
+        "no_positive_users": 613,
+        "warm_active_users": 384,
+        "cold_active_users": 3,
+        "warm_active_without_catalog_history": 1,
+        "outside_catalog_positive_pairs": 20702
+      },
+      "candidate_rows": 253901,
+      "cf_fit_seconds": 2.9156242919998476,
+      "snapshot_seconds": 5.908481875005236
+    },
+    {
+      "day": 168,
+      "systems": {
+        "manual": {
+          "warm": {
+            "ndcg": 0.1561745058830552,
+            "recall": 0.021149047058976883,
+            "candidate_recall": 0.21476390855869212
+          },
+          "all_active": {
+            "ndcg": 0.1522613995018257,
+            "recall": 0.020628483665804994,
+            "candidate_recall": 0.21827123460880046
+          }
+        },
+        "importance": {
+          "warm": {
+            "ndcg": 0.15328063909208195,
+            "recall": 0.02058569125993539,
+            "candidate_recall": 0.21476390855869212
+          },
+          "all_active": {
+            "ndcg": 0.14944691559040532,
+            "recall": 0.020080581517111267,
+            "candidate_recall": 0.21827123460880046
+          }
+        },
+        "random": {
+          "warm": {
+            "ndcg": 0.15329155515013937,
+            "recall": 0.01959221309284523,
+            "candidate_recall": 0.21476390855869212
+          },
+          "all_active": {
+            "ndcg": 0.14945753220547364,
+            "recall": 0.019114355868320342,
+            "candidate_recall": 0.21827123460880046
+          }
+        }
+      },
+      "population": {
+        "query_users": 401,
+        "no_positive_users": 599,
+        "warm_active_users": 390,
+        "cold_active_users": 11,
+        "warm_active_without_catalog_history": 0,
+        "outside_catalog_positive_pairs": 21846
+      },
+      "candidate_rows": 262460,
+      "cf_fit_seconds": 2.9477740000002086,
+      "snapshot_seconds": 6.006760457996279
+    },
+    {
+      "day": 175,
+      "systems": {
+        "manual": {
+          "warm": {
+            "ndcg": 0.16292413039392567,
+            "recall": 0.018016134206515776,
+            "candidate_recall": 0.1993255507139565
+          },
+          "all_active": {
+            "ndcg": 0.16483103702093005,
+            "recall": 0.017990684396878686,
+            "candidate_recall": 0.19993265937863902
+          }
+        },
+        "importance": {
+          "warm": {
+            "ndcg": 0.16867213200180553,
+            "recall": 0.019768051481934827,
+            "candidate_recall": 0.1993255507139565
+          },
+          "all_active": {
+            "ndcg": 0.17049367226829681,
+            "recall": 0.019716583098900425,
+            "candidate_recall": 0.19993265937863902
+          }
+        },
+        "random": {
+          "warm": {
+            "ndcg": 0.1702026012727004,
+            "recall": 0.02002201726733255,
+            "candidate_recall": 0.1993255507139565
+          },
+          "all_active": {
+            "ndcg": 0.1720014117975448,
+            "recall": 0.019966777115208084,
+            "candidate_recall": 0.19993265937863902
+          }
+        }
+      },
+      "population": {
+        "query_users": 404,
+        "no_positive_users": 596,
+        "warm_active_users": 398,
+        "cold_active_users": 6,
+        "warm_active_without_catalog_history": 0,
+        "outside_catalog_positive_pairs": 23558
+      },
+      "candidate_rows": 264147,
+      "cf_fit_seconds": 3.0089091250047204,
+      "snapshot_seconds": 6.115962916999706
+    }
+  ],
+  "pooled_equal_week": {
+    "warm": {
+      "manual": {
+        "ndcg": 0.16622692557847124,
+        "recall": 0.019946747718807795,
+        "candidate_recall": 0.2097382754611641
+      },
+      "importance": {
+        "ndcg": 0.16695367650632456,
+        "recall": 0.020174120949192766,
+        "candidate_recall": 0.2097382754611641
+      },
+      "random": {
+        "ndcg": 0.16792634029219786,
+        "recall": 0.019726251309151385,
+        "candidate_recall": 0.2097382754611641
+      }
+    },
+    "all_active": {
+      "manual": {
+        "ndcg": 0.16552470843322759,
+        "recall": 0.019813408120865683,
+        "candidate_recall": 0.21130706220219606
+      },
+      "importance": {
+        "ndcg": 0.1662512061646713,
+        "recall": 0.02003856834533808,
+        "candidate_recall": 0.21130706220219606
+      },
+      "random": {
+        "ndcg": 0.16721263643414483,
+        "recall": 0.019600086594667276,
+        "candidate_recall": 0.21130706220219606
+      }
+    }
+  },
+  "paired_user_bootstrap": {
+    "warm": {
+      "importance_minus_manual": {
+        "ndcg": {
+          "delta": 0.0007267509278533076,
+          "ci95": [
+            -0.0028729392334511713,
+            0.0043337686456554145
+          ],
+          "users": 480,
+          "queries": 1172
+        },
+        "recall": {
+          "delta": 0.0002273732303849751,
+          "ci95": [
+            -0.0008836253274038586,
+            0.0015294683022625364
+          ],
+          "users": 480,
+          "queries": 1172
+        }
+      },
+      "random_minus_manual": {
+        "ndcg": {
+          "delta": 0.0016994147137266088,
+          "ci95": [
+            -0.0022032185447430916,
+            0.0057442848461711
+          ],
+          "users": 480,
+          "queries": 1172
+        },
+        "recall": {
+          "delta": -0.0002204964096564066,
+          "ci95": [
+            -0.0014856783313203536,
+            0.0012429537855211397
+          ],
+          "users": 480,
+          "queries": 1172
+        }
+      },
+      "importance_minus_random": {
+        "ndcg": {
+          "delta": -0.0009726637858732991,
+          "ci95": [
+            -0.004754899790479857,
+            0.002686956443397124
+          ],
+          "users": 480,
+          "queries": 1172
+        },
+        "recall": {
+          "delta": 0.00044786964004138165,
+          "ci95": [
+            -0.0004175030288063356,
+            0.0013285393741821383
+          ],
+          "users": 480,
+          "queries": 1172
+        }
+      }
+    },
+    "all_active": {
+      "importance_minus_manual": {
+        "ndcg": {
+          "delta": 0.0007264977314437026,
+          "ci95": [
+            -0.0029461349471270096,
+            0.004308242565682098
+          ],
+          "users": 489,
+          "queries": 1192
+        },
+        "recall": {
+          "delta": 0.00022516022447239582,
+          "ci95": [
+            -0.0008078930993014673,
+            0.001480333853823811
+          ],
+          "users": 489,
+          "queries": 1192
+        }
+      },
+      "random_minus_manual": {
+        "ndcg": {
+          "delta": 0.0016879280009172118,
+          "ci95": [
+            -0.002348313966048449,
+            0.0057536575334160706
+          ],
+          "users": 489,
+          "queries": 1192
+        },
+        "recall": {
+          "delta": -0.00021332152619840658,
+          "ci95": [
+            -0.001455578882900783,
+            0.0011646828934306808
+          ],
+          "users": 489,
+          "queries": 1192
+        }
+      },
+      "importance_minus_random": {
+        "ndcg": {
+          "delta": -0.0009614302694735073,
+          "ci95": [
+            -0.0047673956201279765,
+            0.002498562710648804
+          ],
+          "users": 489,
+          "queries": 1192
+        },
+        "recall": {
+          "delta": 0.00043848175067080254,
+          "ci95": [
+            -0.00046189320249785394,
+            0.0013407432192959878
+          ],
+          "users": 489,
+          "queries": 1192
+        }
+      }
+    }
+  },
+  "final_models": {
+    "manual": {
+      "files": [
+        "final_manual_17.cbm",
+        "final_manual_42.cbm",
+        "final_manual_73.cbm"
+      ],
+      "fit_seconds_all_seeds": 111.05646033299854,
+      "model_bytes_all_seeds": 555287724
+    },
+    "importance": {
+      "files": [
+        "final_importance_17.cbm",
+        "final_importance_42.cbm",
+        "final_importance_73.cbm"
+      ],
+      "fit_seconds_all_seeds": 114.92860470899905,
+      "model_bytes_all_seeds": 514190224
+    },
+    "random": {
+      "files": [
+        "final_random_17.cbm",
+        "final_random_42.cbm",
+        "final_random_73.cbm"
+      ],
+      "fit_seconds_all_seeds": 129.85093895799218,
+      "model_bytes_all_seeds": 472238776
+    }
+  },
+  "pooled_estimand": "Equal mean of three week-level user macro metrics. Bootstrap user multiplicities shared across all weeks; all-active main, warm separate.",
+  "final_selection_rule": "No final winner or subset is selected; compare all three frozen arms.",
+  "primary_result": {
+    "reference": "manual",
+    "challenger": "importance",
+    "population": "all_future_positive_with_common_cold_fallback",
+    "metric": "equal_three_week_macro_ndcg@10",
+    "reference_value": 0.16552470843322759,
+    "challenger_value": 0.1662512061646713,
+    "bootstrap": {
+      "delta": 0.0007264977314437026,
+      "ci95": [
+        -0.0029461349471270096,
+        0.004308242565682098
+      ],
+      "users": 489,
+      "queries": 1192
+    }
+  },
+  "bootstrap_population": "Resample the union of users with positive targets in at least one final week; warm uses the warm-active union. No-positive-in-all-three-weeks users are outside this conditional ranking estimand. Intervals condition on these three fixed periods and fitted seed ensembles; they do not estimate calendar-period or retraining variability."
+}

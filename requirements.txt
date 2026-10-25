@@ -1,0 +1,15 @@
+numpy==2.4.6
+pandas==3.1.0
+scipy==1.17.1
+scikit-learn==1.9.1
+catboost==1.2.10
+lightgbm==4.7.0
+implicit==0.7.3
+lightfm @ git+https://github.com/lyst/lightfm.git@0c9c31e027b976beab2385e268b58010fff46096
+pyarrow==26.0.0
+matplotlib==3.11.2
+reportlab==4.4.9
+threadpoolctl==3.7.0
+requests==2.34.2
+tqdm==4.70.1
+

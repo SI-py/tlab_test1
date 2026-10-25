@@ -1,0 +1,137 @@
+{
+  "scope": "Existing prefix fits; warm-state request benchmark, no CF/GBDT training",
+  "cutoff": "2021-08-16",
+  "user_sampling": "Uniform sorted prefix users, without future-activity filtering",
+  "batch_size": 128,
+  "candidate_rows": 124931,
+  "seed": 2026,
+  "gbdt_threads": 4,
+  "blas_threads": 1,
+  "warmup_runs": 1,
+  "timed_runs": 3,
+  "shared_startup": {
+    "index_load_seconds": 0.27687012500246055,
+    "extra_generator_load_seconds": 0.30318283299857285,
+    "raw_read_and_prefix_seconds": 0.5330063329965924,
+    "initial_candidate_generation_seconds": 1.0237173339992296
+  },
+  "cases": {
+    "manual": {
+      "models": [
+        "manual"
+      ],
+      "seed_models": 3,
+      "required_feature_columns": 181,
+      "constructed_auto_windows": [],
+      "latent_or_anchor_columns": 0,
+      "feature_parity_exact": true,
+      "first_ensemble_load_seconds": 0.21298458400269737,
+      "repeat_ensemble_load_seconds": 0.08235354199860012,
+      "prefix_aggregate_store_constructor_seconds": 6.540924250002718,
+      "feature_only": {
+        "runs_seconds": [
+          0.33838929199555423,
+          0.33430808300181525,
+          0.3352491670011659
+        ],
+        "mean_seconds": 0.33598218066617846,
+        "min_seconds": 0.33430808300181525,
+        "max_seconds": 0.33838929199555423
+      },
+      "full_warm_request": {
+        "runs_seconds": [
+          2.3232808340035263,
+          2.334743207997235,
+          2.3112467500031926
+        ],
+        "mean_seconds": 2.323090264001318,
+        "min_seconds": 2.3112467500031926,
+        "max_seconds": 2.334743207997235
+      }
+    },
+    "auto_selected": {
+      "models": [
+        "auto_selected"
+      ],
+      "seed_models": 3,
+      "required_feature_columns": 223,
+      "constructed_auto_windows": [
+        2,
+        3,
+        5
+      ],
+      "latent_or_anchor_columns": 0,
+      "feature_parity_exact": true,
+      "first_ensemble_load_seconds": 0.14599820899456972,
+      "repeat_ensemble_load_seconds": 0.05808216599689331,
+      "prefix_aggregate_store_constructor_seconds": 6.543233874996076,
+      "feature_only": {
+        "runs_seconds": [
+          0.35960483300004853,
+          0.361036290996708,
+          0.36481441599607933
+        ],
+        "mean_seconds": 0.3618185133309453,
+        "min_seconds": 0.35960483300004853,
+        "max_seconds": 0.36481441599607933
+      },
+      "full_warm_request": {
+        "runs_seconds": [
+          2.347296041996742,
+          2.3451773330016294,
+          2.3895322919997852
+        ],
+        "mean_seconds": 2.3606685556660523,
+        "min_seconds": 2.3451773330016294,
+        "max_seconds": 2.3895322919997852
+      }
+    },
+    "primary": {
+      "models": [
+        "auto_windows",
+        "auto_selected"
+      ],
+      "seed_models": 6,
+      "required_feature_columns": 307,
+      "constructed_auto_windows": [
+        2,
+        3,
+        5,
+        10,
+        14,
+        21,
+        45,
+        60,
+        90
+      ],
+      "latent_or_anchor_columns": 0,
+      "feature_parity_exact": true,
+      "first_ensemble_load_seconds": 0.3997193329996662,
+      "repeat_ensemble_load_seconds": 0.2806035410030745,
+      "prefix_aggregate_store_constructor_seconds": 7.280019958001503,
+      "feature_only": {
+        "runs_seconds": [
+          0.4204747080002562,
+          0.42403099999501137,
+          0.420897584001068
+        ],
+        "mean_seconds": 0.42180109733211185,
+        "min_seconds": 0.4204747080002562,
+        "max_seconds": 0.42403099999501137
+      },
+      "full_warm_request": {
+        "runs_seconds": [
+          3.424364416998287,
+          3.433006540995848,
+          3.451115291994938
+        ],
+        "mean_seconds": 3.436162083329691,
+        "min_seconds": 3.424364416998287,
+        "max_seconds": 3.451115291994938
+      }
+    }
+  },
+  "timing_boundary": "Full request = generate candidates + selective store.build + saved model scoring + top10. Prefix fits, cache/model loading and aggregate-store constructor excluded and reported separately.",
+  "cold_definition": "Observed first load in this process; OS filesystem cache is not flushed, so this is not a physical cold-disk claim.",
+  "reference_full_constructor_plus_build_seconds": 7.299795500002801
+}

@@ -1,0 +1,136 @@
+{
+  "protocol": {
+    "train_cutoffs": [
+      "2021-07-19",
+      "2021-07-26"
+    ],
+    "validation_cutoffs": [
+      "2021-08-02",
+      "2021-08-09"
+    ],
+    "test_cutoff": "2021-08-16",
+    "observation_end": "2021-08-23",
+    "horizon_days": 7,
+    "n_train_users": 100000,
+    "n_validation_users": 15000,
+    "n_test_users": 40000,
+    "seed": 736291
+  },
+  "collaborative": {
+    "topk": 200,
+    "cosine_topk": 256,
+    "block_size": 128,
+    "bm25_b": 0.8,
+    "bm25_k1": 1.2,
+    "rp3_alpha": 1.0,
+    "rp3_beta": 0.6,
+    "als": true,
+    "als_factors": 96,
+    "als_iterations": 25,
+    "als_alpha": 30,
+    "als_regularization": 0.05,
+    "lightfm": true,
+    "lightfm_factors": 128,
+    "lightfm_epochs": 20,
+    "lightfm_user_alpha": 6e-05,
+    "lightfm_item_alpha": 2e-05,
+    "lightfm_learning_rate": 0.01,
+    "lightfm_max_sampled": 150,
+    "ease": true,
+    "ease_items": 5000,
+    "ease_l2": 1000,
+    "seed": 43,
+    "threads": 1,
+    "max_batch": 128
+  },
+  "budgets": {
+    "bm25": 100,
+    "rp3beta": 100,
+    "als": 0,
+    "lightfm": 500,
+    "ease": 500,
+    "pop": 500,
+    "biased_als": 50,
+    "hybrid_als": 50,
+    "sex_pop": 60,
+    "age_pop": 60,
+    "income_pop": 60,
+    "kids_pop": 60,
+    "weighted_bias_als": 100,
+    "weighted_hybrid_als": 100
+  },
+  "train_negatives": 80,
+  "train_hard_negatives": 20,
+  "num_threads": 4,
+  "seeds": [
+    17,
+    42,
+    73
+  ],
+  "max_trees": 1200,
+  "learning_rate": 0.035,
+  "candidate_generator": {
+    "conditional": true,
+    "conditional_prior": 20
+  },
+  "feature_store": "quality_v4",
+  "extra_models": {
+    "biased_als": {
+      "factors": 128,
+      "iterations": 10,
+      "alpha": 10,
+      "regularization": 0.5,
+      "seed": 32,
+      "threads": 1,
+      "features": "bias",
+      "fit_features_together": false
+    },
+    "hybrid_als": {
+      "factors": 32,
+      "iterations": 10,
+      "alpha": 10,
+      "regularization": 0.5,
+      "seed": 32,
+      "threads": 1,
+      "features": "metadata",
+      "fit_features_together": true
+    },
+    "weighted_bias_als": {
+      "factors": 128,
+      "iterations": 10,
+      "alpha": 10,
+      "regularization": 0.5,
+      "seed": 32,
+      "threads": 1,
+      "features": "bias",
+      "fit_features_together": false,
+      "weighting": "rectools_kion"
+    },
+    "weighted_hybrid_als": {
+      "factors": 32,
+      "iterations": 10,
+      "alpha": 10,
+      "regularization": 0.5,
+      "seed": 32,
+      "threads": 1,
+      "features": "metadata",
+      "fit_features_together": true,
+      "weighting": "rectools_kion"
+    }
+  },
+  "representation_model": "weighted_hybrid_als",
+  "search_engine": "source_v4",
+  "training_sampling": "source_classifier",
+  "catboost_max_trees": 2000,
+  "catboost_staged_period": 50,
+  "catboost_grid": [
+    {
+      "depth": 9,
+      "l2_leaf_reg": 27
+    },
+    {
+      "depth": 7,
+      "l2_leaf_reg": 15
+    }
+  ]
+}

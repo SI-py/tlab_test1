@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tlab-feature-recommendations"
+version = "0.1.0"
+description = "Automatic temporal feature selection and learned representations on KION"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+include = ["recsys*"]
+
